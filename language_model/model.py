@@ -1,7 +1,12 @@
 import json
 
+import os
+
 from vosk import KaldiRecognizer
 from vosk import Model
+
+
+_PATH_TO_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class LanguageModel:
@@ -15,7 +20,7 @@ class LanguageModel:
     def change_language(self, language):
         self.language = language
         if self.language == 'ru':
-            self._model = Model('./vosk-model-small-ru-0.22')
+            self._model = Model(_PATH_TO_BASE_DIR + '\\vosk-model-small-ru-0.22')
         else:
             raise NotImplementedError(
                 f'Language {language} is not supported yet',
