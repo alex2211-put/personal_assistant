@@ -1,6 +1,7 @@
 import pyaudio
-from language_model import model as lang_mod
-from language_model import speaker as sp_mod
+from assistant.language_model import model as lang_mod, speaker as sp_mod
+from assistant.resolve_text import resolver as person_resolver
+from assistant.model_text import resolver as model_resolver
 
 
 def run_assistant():
@@ -16,13 +17,21 @@ def run_assistant():
 
     model = lang_mod.LanguageModel()
     speaker = sp_mod.Speaker()
+    resolver_person_text = person_resolver.Resolver
+    resolver_model_answer = model_resolver.Resolver
     while True:
         data = stream.read(4000, exception_on_overflow=False)
         if len(data) == 0:
             break
         text = model.get_text_from_data(data)
         if text:
-            speaker.speak(text)
+            print(text)
+            command_type = resolver_person_text.get_type(text)
+            answer = resolver_model_answer.get_answer(text=text, type_=command_type)
+            if answer:
+                speaker.speak(answer)
+            else:
+                speaker.speak()
 
 
 if __name__ == '__main__':
