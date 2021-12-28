@@ -13,10 +13,19 @@ class Speaker:
 
     def change_language(self, language):
         self.language = language
-        if self.gender == 'w':
-            self.engine.setProperty('voice', language_consts.VOICES[language][0])
-        else:
-            self.engine.setProperty('voice', language_consts.VOICES[language][-1])
+        try:
+            if self.gender == 'w':
+                self.engine.setProperty(
+                    'voice', language_consts.VOICES.get(language)[0],
+                )
+            else:
+                self.engine.setProperty(
+                    'voice', language_consts.VOICES.get(language)[-1],
+                )
+        except TypeError:
+            raise NotImplementedError(
+                f'Language {language} is not supported yet',
+            )
 
     def change_gender(self, gender):
         self.gender = gender

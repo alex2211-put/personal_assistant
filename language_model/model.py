@@ -20,6 +20,7 @@ class LanguageModel:
             raise NotImplementedError(
                 f'Language {language} is not supported yet',
             )
+        self._recognizer = None
         return self._get_recognizer()
 
     def get_text_from_data(self, data):
