@@ -31,7 +31,7 @@ def run_assistant():
             if answer:
                 speaker.speak(answer)
             else:
-                speaker.speak()
+                speaker.speak('Я не поняла')
 
 
 if __name__ == '__main__':
