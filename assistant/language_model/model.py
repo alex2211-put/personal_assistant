@@ -71,8 +71,7 @@ class LanguageModel:
                 shutil.move(person_name_with_ + '.wav', path.parent)
                 speaker.speak("Пользователь успешно создан. Всё настроено. Я готова к использованию.")
                 with open(pathlib.Path(_PATH_TO_BASE_DIR).parent.joinpath('settings.yaml'), 'w') as f:
-                    yaml.dump({'name': name.split()[1]}, f)
-                    yaml.dump({'authorization': True})
+                    yaml.dump({'name': name.split()[1], 'authorization': True}, f)
 
             else:
                 speaker.speak("Провести авторизацию еще раз?")
@@ -85,15 +84,13 @@ class LanguageModel:
                 else:
                     speaker.speak("Хорошо. Вы в неавторизованном режиме. Я готова к использованию.")
                     with open(pathlib.Path(_PATH_TO_BASE_DIR).parent.joinpath('settings.yaml'), 'w') as f:
-                        yaml.dump({'name': name.split()[1]}, f)
-                        yaml.dump({'authorization': False})
+                        yaml.dump({'name': name.split()[1], 'authorization': False}, f)
         else:
             auth = authorization_by_voice.comparing_voices("_".join(name.split()))
             if auth:
                 speaker.speak(base_phrases.AUTHORIZING[auth])
                 with open(pathlib.Path(_PATH_TO_BASE_DIR).parent.joinpath('settings.yaml'), 'w') as f:
-                    yaml.dump({'name': name.split()[1]}, f)
-                    yaml.dump({'authorization': True})
+                    yaml.dump({'name': name.split()[1], 'authorization': True}, f)
             else:
                 speaker.speak(base_phrases.AUTHORIZING[auth])
                 data = stream.read(4000, exception_on_overflow=False)
@@ -102,8 +99,7 @@ class LanguageModel:
                     return self.initialization(stream, speaker, p)
                 speaker.speak("Хорошо. Вы в неавторизованном режиме. Я готова к использованию.")
                 with open(pathlib.Path(_PATH_TO_BASE_DIR).parent.joinpath('settings.yaml'), 'w') as f:
-                    yaml.dump({'name': name.split()[1]}, f)
-                    yaml.dump({'authorization': False})
+                    yaml.dump({'name': name.split()[1], 'authorization': False}, f)
         for i in range(len(base_phrases.MOST_USEFUL_PHRASES.get(types_text.CommandType.greeting))):
             base_phrases.MOST_USEFUL_PHRASES[types_text.CommandType.greeting][i] += information_from_yaml.get_name()
 
