@@ -1,4 +1,5 @@
 from assistant import information_from_yaml
+from assistant.language_model import initialization
 from assistant.language_model import model as lang_mod, speaker as sp_mod
 from assistant.resolve_text import resolver as person_resolver
 from assistant.model_text import base_phrases
@@ -24,7 +25,7 @@ def run_assistant():
     information_from_yaml.set_name('')
     speaker.speak(base_phrases.greeting() + "Я твой голосовой помошник.")
 
-    model.initialization(stream=stream, speaker_=speaker, p=p)
+    initialization.initialization(model=model, stream=stream, speaker_=speaker, p=p)
     while True:
         text = model.get_text_from_stream(stream)
         if text:
