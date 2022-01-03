@@ -1,10 +1,9 @@
-import pyaudio
+from assistant import information_from_yaml
 from assistant.language_model import model as lang_mod, speaker as sp_mod
 from assistant.resolve_text import resolver as person_resolver
+from assistant.model_text import base_phrases
 from assistant.model_text import resolver as model_resolver
-
-chunk = 1024
-frames = []
+import pyaudio
 
 
 def run_assistant():
@@ -22,12 +21,12 @@ def run_assistant():
     speaker = sp_mod.Speaker()
     resolver_person_text = person_resolver.Resolver
     resolver_model_answer = model_resolver.Resolver
-    model.initialization(stream=stream, speaker=speaker, p=p)
+    information_from_yaml.set_name('')
+    speaker.speak(base_phrases.greeting() + "Я твой голосовой помошник.")
+
+    model.initialization(stream=stream, speaker_=speaker, p=p)
     while True:
-        data = stream.read(4000, exception_on_overflow=False)
-        if len(data) == 0:
-            break
-        text = model.get_text_from_data(data)
+        text = model.get_text_from_stream(stream)
         if text:
             print(text)
             command_type = resolver_person_text.get_type(text)
