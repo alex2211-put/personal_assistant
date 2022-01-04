@@ -29,7 +29,6 @@ class Speaker:
 
     def change_gender(self, gender):
         self.gender = gender
-
         self.change_language(self.language)
 
     def speak(self, text):
