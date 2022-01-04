@@ -1,3 +1,4 @@
+from assistant.language_model import model as mod
 from assistant.language_model import speaker
 from assistant.language_model.recognition_by_voice import authorization_by_voice
 from assistant.model_text import base_phrases
@@ -17,7 +18,12 @@ import wave
 _PATH_TO_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def initialization(model, stream, speaker_: speaker.Speaker, p):
+def initialization(
+        model: mod.LanguageModel,
+        stream: pyaudio.Stream,
+        speaker_: speaker.Speaker,
+        p: pyaudio.PyAudio,
+):
     name, file = _get_name_and_file(speaker_, stream, p)
     person_name_with_ = '_'.join(name.split())
     path = pathlib.Path(_PATH_TO_BASE_DIR).parent.joinpath('person_files', person_name_with_)
@@ -41,12 +47,11 @@ def initialization(model, stream, speaker_: speaker.Speaker, p):
     else:
         auth = authorization_by_voice.comparing_voices("_".join(name.split()))
         if auth:
-            speaker_.speak(base_phrases.AUTHORIZING[auth])
+            speaker_.speak(base_phrases.AUTHORIZING[True])
             authorizing = True
         else:
-            speaker_.speak(base_phrases.AUTHORIZING[auth])
-            data = stream.read(4000, exception_on_overflow=False)
-            text = model.get_text_from_stream(data)
+            speaker_.speak(base_phrases.AUTHORIZING[False])
+            text = model.get_text_from_stream(stream)
             if any(phrase in text for phrase in person_phrases.AFFIRMATIVE_PHRASES):
                 return initialization(model, stream, speaker_, p)
             speaker_.speak("Хорошо. Вы в неавторизованном режиме. Я готова к использованию.")

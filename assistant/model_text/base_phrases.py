@@ -18,9 +18,9 @@ AUTHORIZING = {
 def greeting():
     name = information_from_yaml.get_name()
     with_part_of_day = _get_part_of_day()
-    variants = MOST_USEFUL_PHRASES[types_text.CommandType.greeting].copy()
-    variants.append(with_part_of_day)
-    return random.choice(variants) + ', ' + name
+    sample_phrases_for_greeting = MOST_USEFUL_PHRASES[types_text.CommandType.greeting].copy()
+    sample_phrases_for_greeting.append(with_part_of_day)
+    return random.choice(sample_phrases_for_greeting) + ', ' + name
 
 
 def _get_part_of_day():

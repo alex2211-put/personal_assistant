@@ -23,7 +23,7 @@ def run_assistant():
     resolver_person_text = person_resolver.Resolver
     resolver_model_answer = model_resolver.Resolver
     information_from_yaml.set_name('')
-    speaker.speak(base_phrases.greeting() + "Я твой голосовой помошник.")
+    speaker.speak(base_phrases.greeting() + " Я твой голосовой помошник.")
 
     initialization.initialization(model=model, stream=stream, speaker_=speaker, p=p)
     while True:
