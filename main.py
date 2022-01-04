@@ -1,9 +1,9 @@
 from assistant import information_from_yaml
 from assistant.language_model import initialization
 from assistant.language_model import model as lang_mod, speaker as sp_mod
-from assistant.resolve_text import resolver as person_resolver
 from assistant.model_text import base_phrases
 from assistant.model_text import resolver as model_resolver
+from assistant.resolve_text import resolver as person_resolver
 import pyaudio
 
 
