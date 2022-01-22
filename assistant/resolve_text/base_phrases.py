@@ -6,3 +6,6 @@ GREETINGS_FROM_PEOPLE = [
 AFFIRMATIVE_PHRASES = [
     'да', 'конечно', 'естественно', 'хочу',
 ]
+WEATHER_PHRASES = [
+    'погода', 'погодка', 'на улице',
+]
