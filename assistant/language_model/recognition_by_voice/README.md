@@ -129,6 +129,8 @@
 в виде спектра является самым оптимальным для задачи идентификации
 человека по его голосу.
 
-http://www.jip.ru/2020/10-21-2020.pdf
-https://habr.com/ru/post/336516/
-http://www.jip.ru/2010/87-104-2010.pdf
+* http://www.jip.ru/2020/10-21-2020.pdf
+* https://habr.com/ru/post/336516/
+* http://www.jip.ru/2010/87-104-2010.pdf
+* https://habr.com/ru/post/144580/
+* https://medium.com/nuances-of-programming/анализ-аудиоданных-с-помощью-глубокого-обучения-и-python-часть-1-2056fef8525e
