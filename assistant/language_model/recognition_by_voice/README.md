@@ -134,3 +134,4 @@
 * http://www.jip.ru/2010/87-104-2010.pdf
 * https://habr.com/ru/post/144580/
 * https://medium.com/nuances-of-programming/анализ-аудиоданных-с-помощью-глубокого-обучения-и-python-часть-1-2056fef8525e
+* https://xakep.ru/2019/09/03/voice-recognition/
