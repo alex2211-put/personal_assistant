@@ -5,6 +5,7 @@ from assistant.model_text import base_phrases
 from assistant.model_text import resolver as model_resolver
 from assistant.resolve_text import resolver as person_resolver
 import pyaudio
+import pymorphy2
 
 
 def run_assistant():
@@ -19,17 +20,18 @@ def run_assistant():
     stream.start_stream()
 
     model = lang_mod.LanguageModel()
-    speaker = sp_mod.Speaker()
-    resolver_person_text = person_resolver.Resolver
+    morph = pymorphy2.MorphAnalyzer()
     resolver_model_answer = model_resolver.Resolver
+    resolver_person_text = person_resolver.Resolver
+    speaker = sp_mod.Speaker()
     information_from_yaml.set_name('')
     speaker.speak(base_phrases.greeting() + " Я твой голосовой помошник.")
-
     initialization.initialization(model=model, stream=stream, speaker_=speaker, p=p)
     while True:
         text = model.get_text_from_stream(stream)
+        text = ' '.join(morph.parse(word)[0].normal_form for word in text.split())
+        text = text.strip()
         if text:
-            print(text)
             command_type = resolver_person_text.get_type(text)
             answer = resolver_model_answer.get_answer(text=text, type_=command_type)
             if answer:

@@ -25,3 +25,4 @@ class Resolver:
             return random.choice(base_phrases.MOST_USEFUL_PHRASES.get(type_))
         elif type_ in TYPES_FOR_FUNC_ANSWERS_ON_MESSAGE:
             pass
+
